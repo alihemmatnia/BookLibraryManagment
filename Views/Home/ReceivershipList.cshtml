@@ -1,0 +1,107 @@
+﻿@model List<Book.Data.Books>
+@using Book.DateConvert
+@{
+    ViewData["Title"] = "امانت کتابی";
+}
+
+<!--<section class="content mr-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-6">-->
+                <!-- small box -->
+                <!--<div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>@Model.Count</h3>
+
+                        <p>مجموع کتاب ها</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-bookmarks"></i>
+                    </div>
+                </div>
+            </div>-->
+            <!-- ./col -->
+            <!--<div class="col-lg-3 col-6">-->
+                <!-- small box -->
+                <!--<div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>12<sup style="font-size: 20px"></sup></h3>
+
+                        <p>کل دانشجو ها</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-stalker"></i>
+                    </div>
+                </div>
+            </div>-->
+            <!-- ./col -->
+            <!--<div class="col-lg-3 col-6">-->
+                <!-- small box -->
+                <!--<div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>@Model.Where(p => p.Status == true).Count()</h3>
+
+                        <p>کتاب های در امانت</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-arrow-left-a"></i>
+                    </div>
+                </div>
+            </div>-->
+            <!-- ./col -->
+            <!--<div class="col-lg-3 col-6">-->
+                <!-- small box -->
+                <!--<div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>@Model.Where(p => p.Status == false).Count()</h3>
+
+                        <p>کتاب های موجود برای امانت</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-albums"></i>
+                    </div>
+                </div>
+            </div>-->
+            <!-- ./col -->
+        <!--</div>
+    </div>
+</section>-->
+
+<div class="row mt-3 mr-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">کتاب های در امانت</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tr>
+                        <th>شماره</th>
+                        <th>تصویر</th>
+                        <th>عنوان</th>
+                        <th>تاریخ</th>
+                        <th>تاریخ برگشت</th>
+                        <th>دانشجو</th>
+                    </tr>
+                    @foreach (var i in Model)
+                    {
+                <tr>
+                    <td>@i.BookId</td>
+                    <td><img src="~/Images/@i.Image" width="100" height="80"/></td>
+                    <td>@i.Title</td>
+
+                    <td>@i.CreateDate.ToShamsi().ToString()</td>
+                    <td>@i.DateBe.ToShamsi().ToString()</td>
+                    
+                    <td>@i.StudentName</td>
+                </tr>
+                    }
+
+
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div><!-- /.row -->

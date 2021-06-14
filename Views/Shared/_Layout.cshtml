@@ -1,0 +1,230 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - کتابخانه</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="~/css/custom-style.css">
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/" class="nav-link">خانه</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/" class="nav-link">تماس</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/logout" class="nav-link">خروج</a>
+                </li>
+            </ul>
+
+            @*<form class="form-inline ml-3">
+                  <div class="input-group input-group-sm">
+                    <input class="form-control form-control-navbar" type="search" placeholder="جستجو" aria-label="Search">
+                    <div class="input-group-append">
+                      <button class="btn btn-navbar" type="submit">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>*@
+
+        </nav>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="/" class="brand-link">
+
+                <span class="brand-text font-weight-light">پنل مدیریت</span>
+            </a>
+
+            <div class="sidebar" style="direction: ltr">
+                <div style="direction: rtl">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/img/avatar5.png " class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="/" class="d-block">@User.Identity.Name</a>
+                        </div>
+                    </div>
+
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item has-treeview menu-open">
+                                <a href="/" class="nav-link active">
+                                    <i class="nav-icon fa fa-book"></i>
+                                    <p>
+                                        کتاب ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+
+                                    <li class="nav-item">
+                                        <a href="/AddBook" class="nav-link">
+                                            <i class="fa fa-plus-square nav-icon"></i>
+                                            <p>ثبت کتاب</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/BookDel" class="nav-link">
+                                            <i class="fa fa-trash-o nav-icon"></i>
+                                            <p>حذف کتاب</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/BookUpdate" class="nav-link">
+                                            <i class="fa  fa-pencil-square-o nav-icon"></i>
+                                            <p>ویرایش کتاب</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Receivership" class="nav-link">
+                                            <i class="fa  fa-long-arrow-left nav-icon"></i>
+                                            <p>امانت دادن کتاب</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/ReceivershipList" class="nav-link">
+                                            <i class="fa  fa-long-arrow-left nav-icon"></i>
+                                            <p> لیست امانتی  کتاب ها</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/BackBook" class="nav-link">
+                                            <i class="fa  fa-long-arrow-right nav-icon"></i>
+                                            <p>پس گرفتن کتاب</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fa fa-user"></i>
+                                    <p>
+                                        دانشجو ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+
+                                    <li class="nav-item">
+                                        <a href="/StudentAdd" class="nav-link">
+                                            <i class="fa  fa-plus-square nav-icon"></i>
+                                            <p>ثبت دانشجو</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/StudentDel" class="nav-link">
+                                            <i class="fa  fa-trash-o nav-icon"></i>
+                                            <p>حذف دانشجو</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/StudentUpdate" class="nav-link">
+                                            <i class="fa  fa-pencil-square-o nav-icon"></i>
+                                            <p>ویرایش دانشجو</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fa fa-folder-open"></i>
+                                    <p>
+                                        دسته بندی ها
+                                        <i class="right fa fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/CategoryAdd" class="nav-link">
+                                            <i class="fa  fa-plus-square nav-icon"></i>
+                                            <p>ثبت دسته بندی</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Category" class="nav-link">
+                                            <i class="fa  fa-list-ol nav-icon"></i>
+                                            <p>لیست دسته بندی ها</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item has-treeview menu-open">
+                                    <a href="#" class="nav-link active">
+                                        <i class="nav-icon fa fa-user-circle"></i>
+                                        <p>
+                                            اپراتور ها
+                                            <i class="right fa fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/newuser" class="nav-link">
+                                                <i class="fa  fa-plus-square nav-icon"></i>
+                                                <p>ثبت اپراتور جدید</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/Users" class="nav-link">
+                                                <i class="fa  fa-list-ol nav-icon"></i>
+                                                <p>لیست اپراتور ها</p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            }
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+
+        <div class="container mt-5 mb-5">
+            @RenderBody()
+        </div>
+
+        <aside class="control-sidebar control-sidebar-dark">
+        </aside>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/lib/sw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="~/js/adminlte.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

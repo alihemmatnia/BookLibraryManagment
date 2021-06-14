@@ -1,0 +1,47 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "اپراتور ها";
+}
+
+
+
+<div class="row mt-3 mr-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">اپراتور ها</h3>
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <tr>
+                        <th>نام</th>
+                        <th>ایمیل</th>
+                        <th>شماره تفلن</th>
+                        <th>حذف</th>
+
+                    </tr>
+                    @foreach (var i in Model)
+                    {
+                        <tr>
+                            <th>@i.UserName</th>
+                            <td>@i.Email</td>
+                            <td>@i.PhoneNumber</td>
+                            <td><a href="/UserDel?Id=@i.Id"><button class="btn btn-sm btn-danger">حذف</button></a></td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div><!-- /.row -->
+
+
+@section Scripts{
+    @if (ViewBag.Message != null)
+    {
+        <script>Swal.fire("", "@ViewBag.Message", "@ViewBag.Mode");</script>
+    }
+}

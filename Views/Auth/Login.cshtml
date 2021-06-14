@@ -1,0 +1,114 @@
+﻿@model Book.Dtos.LoginDto
+
+
+
+
+@{ 
+    Layout = null;
+}
+
+
+
+@*<div class="container mt-5 p-2" style="margin-top: 30px;">
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Login" asp-controller="auth" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Username" class="control-label"></label>
+                        <input asp-for="Username" class="form-control" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="ورود" class="btn btn-outline-primary btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        </p>
+</div>
+            </div>*@
+
+
+    
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ورود پنل - کتابخانه</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="~/css/custom-style.css">
+</head>
+<body class="hold-transition container login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="/"><b>ورود به پنل مدیریت</b></a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">فرم زیر را تکمیل کنید و ورود بزنید</p>
+
+                <form asp-action="Login" asp-controller="auth" method="post">
+                    <div class="input-group mb-3">
+                        <input asp-for="Username" class="form-control" placeholder="نام کاربری">
+                        <div class="input-group-append">
+                            <span asp-validation-for="Username" class="fa fa-user-circle input-group-text"></span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input asp-for="Password" class="form-control" placeholder="رمز عبور">
+                        <div class="input-group-append">
+                            <span asp-validation-for="Password" class="fa fa-lock input-group-text"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input asp-for="Rem" type="checkbox"> یاد آوری من
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">ورود</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/lib/sw.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="~/js/adminlte.js"></script>
+    @if (ViewBag.Message != null)
+    {
+        <script>Swal.fire("", "@ViewBag.Message", "@ViewBag.Mode");</script>
+    }
+</body>
+</html>

@@ -1,0 +1,94 @@
+@model Book.Dtos.AddBookDto
+
+@{ViewData["Title"] = "افزودن کتاب";}
+
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>افزودن کتاب</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-left">
+              <li class="breadcrumb-item"><a href="/">خانه</a></li>
+              <li class="breadcrumb-item active">افزودن کتاب</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-info card-outline">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form asp-action="AddBook" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label asp-for="Title" class="control-label"></label>
+                                    <input asp-for="Title" class="form-control" />
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Author" class="control-label"></label>
+                                    <input asp-for="Author" class="form-control" />
+                                    <span asp-validation-for="Author" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PublishDate" class="control-label"></label>
+                                    <input asp-for="PublishDate" class="form-control" />
+                                    <span asp-validation-for="PublishDate" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label asp-for="ImageName" class="control-label"></label>
+                                    <input type="file" name="imgup" class="form-control" />
+                                    <span asp-validation-for="ImageName" class="text-danger"></span>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label asp-for="CategoryId" class="control-label"></label>
+                                    <select asp-for="CategoryId" class="form-control" asp-items='ViewBag.Category'></select>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Content" class="control-label"></label>
+                                    <textarea asp-for="Content" class="form-control"></textarea>
+                                    <span asp-validation-for="Content" class="text-danger"></span>
+                                </div>
+                                <div class="form-group text-center">
+                                    <input type="submit" value="ساخت" class="btn btn-outline-success btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+            </div>
+
+
+            @section Scripts{
+                <script src="https://cdn.tiny.cloud/1/v17xakvcuz0vtzhjcpuo4a6ztuv0xbbaywm8aks2e4iq5mfv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+                <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+                <script>
+                    tinymce.init({
+                        selector: 'textarea',
+                        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                        toolbar_mode: 'floating',
+                    });
+                </script>
+                @if (ViewData["message"] != null)
+                {
+                    <script>
+                        $.notify(
+                            "با موفقیت اضافه شد",
+                            { align: "left", verticalAlign: "bottom",type:"success" }
+                        );
+                    </script>
+                }
+            }
