@@ -41,7 +41,7 @@ using Book.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n<!--<section class=\"content mr-5\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-3 col-6\">-->\r\n<!-- small box -->\r\n<!--<div class=\"small-box bg-info\">\r\n        <div class=\"inner\">\r\n            <h3>");
+            WriteLiteral("\r\n<!--<section class=\"content  \">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-3 col-6\">-->\r\n<!-- small box -->\r\n<!--<div class=\"small-box bg-info\">\r\n        <div class=\"inner\">\r\n            <h3>");
 #nullable restore
 #line 13 "C:\Users\ali2004h\projects\Book\Views\Home\StudentUpdate.cshtml"
            Write(Model.Count);
@@ -106,7 +106,7 @@ using Book.Models;
     </div>
 </section>-->
 
-<div class=""row mt-3 mr-5"">
+<div class=""row mt-3  "">
     <div class=""col-12"">
         <div class=""card"">
             <div class=""card-header"">

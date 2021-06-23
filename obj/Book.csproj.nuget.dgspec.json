@@ -52,9 +52,17 @@
               "target": "Package",
               "version": "[5.0.7, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[5.0.7, )"
+            },
+            "WebMarkupMin.AspNetCore5": {
+              "target": "Package",
+              "version": "[2.10.0, )"
             }
           },
           "imports": [

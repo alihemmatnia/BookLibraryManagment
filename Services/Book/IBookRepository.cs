@@ -2,24 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Book.Data;
 using Book.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Book.Services.Book
 {
     public interface IBookRepository
     {
-        void AddBook(Books dto);
-        List<Books> GetAll();
+        Task AddBook(Books dto);
+        Task<List<Books>> GetAll();
 
         void Edit(Books dto);
 
-        void Delete(long Id);
-        Books GetById(long Id);
-        List<Books> GetReceivershipList();
-        bool Receivership(AddReceivershipDto dto);
-        bool BackBook(AddReceivershipDto dto);
-        void Save();
+        Task Delete(long Id);
+        Task<Books> GetById(long Id);
+        Task<List<Books>> GetReceivershipList();
+        Task<bool> Receivership(AddReceivershipDto dto);
+        Task<bool> BackBook(AddReceivershipDto dto);
+        Task Save();
     }
 
     public class BookRepository : IBookRepository
@@ -32,14 +34,14 @@ namespace Book.Services.Book
         }
 
 
-        public void AddBook(Books dto)
+        public async Task AddBook(Books dto)
         {
-            _context.Books.Add(dto);
+            await _context.Books.AddAsync(dto);
         }
 
-        public bool BackBook(AddReceivershipDto dto)
+        public async Task<bool> BackBook(AddReceivershipDto dto)
         {
-            var book = GetById(dto.BookId);
+            var book = await GetById(dto.BookId);
             if (book.Status != false)
             {
                 book.Status = false;
@@ -54,9 +56,9 @@ namespace Book.Services.Book
             }
         }
 
-        public void Delete(long Id)
+        public async Task Delete(long Id)
         {
-            var book = GetById(Id);
+            var book = await GetById(Id);
             if (book.Image != null)
             {
                 string imgpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", book.Image);
@@ -70,33 +72,32 @@ namespace Book.Services.Book
 
         public void Edit(Books dto)
         {
-
             _context.Books.Update(dto);
         }
 
-        public List<Books> GetAll()
+        public async Task<List<Books>> GetAll()
         {
-            return _context.Books.OrderByDescending(p => p.BookId).ToList();
+            return await _context.Books.OrderByDescending(p => p.BookId).ToListAsync();
         }
 
-        public Books GetById(long Id)
+        public async Task<Books> GetById(long Id)
         {
-            return _context.Books.Find(Id);
+            return await _context.Books.FindAsync(Id);
         }
 
-        public List<Books> GetReceivershipList()
+        public async Task<List<Books>> GetReceivershipList()
         {
-            return _context.Books.Where(p => p.Status == true).OrderByDescending(p=>p.BookId).ToList();
+            return await _context.Books.Where(p => p.Status == true).OrderByDescending(p=>p.BookId).ToListAsync();
         }
 
-        public bool Receivership(AddReceivershipDto dto)
+        public async Task<bool> Receivership(AddReceivershipDto dto)
         {
-            var book = GetById(dto.BookId);
+            var book = await GetById(dto.BookId);
             if (book.Status != true)
             {
                 book.Status = true;
-                book.DateBe = DateTime.Now.AddDays(14);
-                var stu = _context.Students.Find((long)dto.StudentId);
+                book.DateBe = DateTime.Now.AddDays(13);
+                var stu = await _context.Students.FindAsync((long)dto.StudentId);
                 if (stu != null)
                 {
                     book.StudentName = stu.Name + " " + stu.Family;
@@ -115,9 +116,9 @@ namespace Book.Services.Book
             
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

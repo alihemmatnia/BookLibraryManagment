@@ -1,5 +1,6 @@
 ﻿using Book.Data;
 using Book.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace Book.Services.Student
 {
     public interface IStudentRepository
     {
-        void AddStudent(AddStudentDto dto);
-        List<Students> GetAll();
+        Task AddStudent(AddStudentDto dto);
+        Task<List<Students>> GetAll();
 
         void Edit(Students dto);
 
-        void Delete(long Id);
-        Students GetById(long Id);
-        void Save();
+        Task Delete(long Id);
+        Task<Students> GetById(long Id);
+        Task Save();
     }
 
     public class StudentRepository : IStudentRepository
@@ -29,9 +30,9 @@ namespace Book.Services.Student
             _context = context;
         }
 
-        public void AddStudent(AddStudentDto dto)
+        public async Task AddStudent(AddStudentDto dto)
         {
-            _context.Students.Add(new Students()
+            await _context.Students.AddAsync(new Students()
             {
                 Name = dto.Name,
                 Family=dto.Family,
@@ -41,29 +42,29 @@ namespace Book.Services.Student
             });
         }
 
-        public void Delete(long Id)
+        public async Task Delete(long Id)
         {
-            _context.Students.Remove(GetById(Id));
+            _context.Students.Remove(await GetById(Id));
         }
 
-        public void Edit(Students dto)
+        public  void Edit(Students dto)
         {
             _context.Students.Update(dto);
         }
 
-        public List<Students> GetAll()
+        public async Task<List<Students>> GetAll()
         {
-            return _context.Students.OrderByDescending(p=>p.StudentId).ToList();
+            return await _context.Students.OrderByDescending(p=>p.StudentId).ToListAsync();
         }
 
-        public Students GetById(long Id)
+        public async Task<Students> GetById(long Id)
         {
-            return _context.Students.Find(Id);
+            return await _context.Students.FindAsync(Id);
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

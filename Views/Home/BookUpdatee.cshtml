@@ -82,7 +82,6 @@
 
             @section Scripts{
                 <script src="https://cdn.tiny.cloud/1/v17xakvcuz0vtzhjcpuo4a6ztuv0xbbaywm8aks2e4iq5mfv/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-                <script src="https://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
                 <script>
                     tinymce.init({
                         selector: 'textarea',
@@ -90,13 +89,5 @@
                         toolbar_mode: 'floating',
                     });
                 </script>
-                @if (ViewData["message"] != null)
-                {
-                    <script>
-                        $.notify(
-                            "با موفقیت ویرایش شد",
-                            { align: "left", verticalAlign: "bottom",type:"success" }
-                        );
-                    </script>
-                }
+             
             }

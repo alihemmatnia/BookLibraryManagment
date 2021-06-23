@@ -14,7 +14,27 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="~/css/bootstrap-rtl.min.css">
     <link rel="stylesheet" href="~/css/custom-style.css">
-
+        <link rel="manifest" href="/manifest.json">
+      <!-- Najva Push Notification -->
+        <script type="text/javascript">
+            (function(){
+                var now = new Date();
+                var version = now.getFullYear().toString() + "0" + now.getMonth() + "0" + now.getDate() +
+                    "0" + now.getHours();
+                var head = document.getElementsByTagName("head")[0];
+                var link = document.createElement("link");
+                link.rel = "stylesheet";
+                link.href = "https://app.najva.com/static/css/local-messaging.css" + "?v=" + version;
+                head.appendChild(link);
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.async = true;
+                script.src = "https://app.najva.com/static/js/scripts/fandogh12-website-27733-93d44b67-02d8-4fab-ac25-5ae8f8d29bc1.js" + "?v=" + version;
+                head.appendChild(script);
+                })()
+        </script>
+        <!-- END NAJVA PUSH NOTIFICATION -->
+      
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -201,6 +221,24 @@
                                 </li>
                             }
 
+
+                                <li class="nav-item has-treeview menu-open">
+                                    <a href="#" class="nav-link active">
+                                        <i class="nav-icon fa fa-user-circle-o"></i>
+                                        <p>
+                                            کاربری
+                                            <i class="right fa fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="/logout" class="nav-link">
+                                                <i class="fa  fa-plus-square nav-icon"></i>
+                                                <p>خروج</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                         </ul>
                     </nav>
                 </div>

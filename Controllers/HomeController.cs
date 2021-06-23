@@ -40,25 +40,25 @@ namespace Book.Controllers
             _student = student;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.StudentsCout = _student.GetAll().Count();   
-            return View(_Books.GetAll());
+            ViewBag.StudentsCout = _student.GetAll().Result.Count;
+            return View(await _Books.GetAll());
         }
 
         #region Books
 
         [HttpGet]
         [Route("/AddBook")]
-        public IActionResult AddBook()
+        public async Task<IActionResult> AddBook()
         {
-            ViewData["Category"] = new SelectList(_category.GetAll(), "CategoryId", "Title");
+            ViewData["Category"] = new SelectList(await _category.GetAll(), "CategoryId", "Title");
             return View();
         }
 
         [HttpPost]
         [Route("/AddBook")]
-        public IActionResult AddBook(AddBookDto dto, IFormFile imgup)
+        public async Task<IActionResult> AddBook(AddBookDto dto, IFormFile imgup)
         {
             if (ModelState.IsValid)
             {
@@ -77,11 +77,11 @@ namespace Book.Controllers
                 );
                 using (FileStream st = new FileStream(savepath, FileMode.Create))
                 {
-                    imgup.CopyTo(st);
+                    await imgup.CopyToAsync(st);
                 }
 
-                _Books.AddBook(NewBook);
-                _Books.Save();
+                await _Books.AddBook(NewBook);
+                await _Books.Save();
 
                 ViewData["message"] = "با موفقیت اضافه شد ";
                 return Redirect("/");
@@ -96,19 +96,19 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/BookDel")]
-        public IActionResult BookDel()
+        public async Task<IActionResult> BookDel()
         {
-            return View(_Books.GetAll());
+            return View(await _Books.GetAll());
         }
 
         [HttpGet]
         [Route("/BookDell")]
-        public IActionResult BookDell(long Id)
+        public async Task<IActionResult> BookDell(long Id)
         {
             if (Id != null)
             {
-                _Books.Delete(Id);
-                _Books.Save();
+                await _Books.Delete(Id);
+                await _Books.Save();
                 return Redirect("/BookDel");
             }
             return Redirect("/BookDel");
@@ -116,27 +116,27 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/BookUpdate")]
-        public IActionResult BookUpdate()
+        public async Task<IActionResult> BookUpdate()
         {
-            return View(_Books.GetAll());
+            return View(await _Books.GetAll());
         }
 
         [HttpGet]
         [Route("/BookUpdatee")]
-        public IActionResult BookUpdatee(long Id)
+        public async Task<IActionResult> BookUpdatee(long Id)
         {
             if (Id != null)
             {
-                ViewData["Category"] = new SelectList(_category.GetAll(), "CategoryId", "Title");
+                ViewData["Category"] = new SelectList(await _category.GetAll(), "CategoryId", "Title");
 
-                return View(_Books.GetById(Id));
+                return View(await _Books.GetById(Id));
             }
             return Redirect("/BookUpdate");
         }
 
         [HttpPost]
         [Route("/BookUpdatee")]
-        public IActionResult BookUpdatee(Books dto, IFormFile imgup)
+        public async Task<IActionResult> BookUpdatee(Books dto, IFormFile imgup)
         {
             if (ModelState.IsValid)
             {
@@ -153,17 +153,17 @@ namespace Book.Controllers
                             );
                         using (FileStream st = new FileStream(savepath, FileMode.Create))
                         {
-                            imgup.CopyTo(st);
+                            await imgup.CopyToAsync(st);
                         }
                     }
-                    _Books.Edit(dto);
-                    _Books.Save();
+                     _Books.Edit(dto);
+                    await _Books.Save();
                     return Redirect("/BookUpdate");
 
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (_Books.GetById(dto.BookId)==null)
+                    if (await _Books.GetById(dto.BookId)==null)
                     {
                         return NotFound();
                     }
@@ -185,14 +185,14 @@ namespace Book.Controllers
 
         [HttpPost]
         [Route("/Receivership")]
-        public IActionResult Receivership(AddReceivershipDto dto)
+        public async Task<IActionResult> Receivership(AddReceivershipDto dto)
         {
             if (ModelState.IsValid)
             {
-                bool st = _Books.Receivership(dto);
+                bool st = await _Books.Receivership(dto);
                 if (st)
                 {
-                    _Books.Save();
+                    await _Books.Save();
                     ViewBag.Mode = "success";
                     ViewBag.Message = "با موفقیت امانت داده شد ";
                     return View();
@@ -221,14 +221,14 @@ namespace Book.Controllers
 
         [HttpPost]
         [Route("/BackBook")]
-        public IActionResult BackBook(AddReceivershipDto dto)
+        public async Task<IActionResult> BackBook(AddReceivershipDto dto)
         {
             if (ModelState.IsValid)
             {
-                bool st = _Books.BackBook(dto);
+                bool st =await _Books.BackBook(dto);
                 if (st)
                 {
-                    _Books.Save();
+                    await _Books.Save();
                     ViewBag.Mode = "success";
                     ViewBag.Message = "با موفقیت پس گرفته شد";
                     return View();
@@ -251,9 +251,9 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/ReceivershipList")]
-        public IActionResult ReceivershipList()
+        public async Task<IActionResult> ReceivershipList()
         {
-            var books = _Books.GetReceivershipList();
+            var books = await _Books.GetReceivershipList();
             return View(books);
         }
 
@@ -266,18 +266,18 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/Category")]
-        public IActionResult Category()
+        public async Task<IActionResult> Category()
         {
-            return View(_category.GetAll());
+            return View(await _category.GetAll());
         }
 
         [HttpGet("/CategoryDel")]
-        public IActionResult DeleteCategory([FromQuery] long Id)
+        public async Task<IActionResult> DeleteCategory([FromQuery] long Id)
         {
             if (Id != null)
             {
-                _category.Delete(Id);
-                _category.Save();
+                await _category.Delete(Id);
+                await _category.Save();
                 return Redirect("/Category");
             }
             else
@@ -296,12 +296,12 @@ namespace Book.Controllers
 
         [HttpPost]
         [Route("/CategoryAdd")]
-        public IActionResult AddCategory(AddCategoryDto dto)
+        public async Task<IActionResult> AddCategory(AddCategoryDto dto)
         {
             if (ModelState.IsValid)
             {
-                _category.AddCategory(dto);
-                _category.Save();
+                await _category.AddCategory(dto);
+                await _category.Save();
                 ViewBag.Mode = "success";
                 ViewBag.Message = "با موفقیت اضافه شد";
                 return View();
@@ -326,12 +326,12 @@ namespace Book.Controllers
 
         [HttpPost]
         [Route("/StudentAdd")]
-        public IActionResult AddStudent(AddStudentDto dto)
+        public async Task<IActionResult> AddStudent(AddStudentDto dto)
         {
             if (ModelState.IsValid)
             {
-                _student.AddStudent(dto);
-                _student.Save();
+                await _student.AddStudent(dto);
+                await _student.Save();
                 ViewBag.Mode = "success";
                 ViewBag.Message = "با موفقیت اضافه شد";
                 return View();
@@ -344,19 +344,19 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/StudentDel")]
-        public IActionResult StudentsDel()
+        public async Task<IActionResult> StudentsDel()
         {
-            return View(_student.GetAll());
+            return View(await _student.GetAll());
         }
 
         [HttpGet]
         [Route("/StudentDell")]
-        public IActionResult StudentsDell(long Id)
+        public async Task<IActionResult> StudentsDell(long Id)
         {
             if (Id != null)
             {
-                _student.Delete(Id);
-                _student.Save();
+                await _student.Delete(Id);
+                await _student.Save();
                 ViewBag.Mode = "success";
                 ViewBag.Message = "با موفقیت حذف شد";
                 return Redirect("/StudentDel");
@@ -367,30 +367,30 @@ namespace Book.Controllers
 
         [HttpGet]
         [Route("/StudentUpdate")]
-        public IActionResult StudentUpdate()
+        public async Task<IActionResult> StudentUpdate()
         {
-            return View(_student.GetAll());
+            return View(await _student.GetAll());
         }
 
         [HttpGet]
         [Route("/StudentUpdatee")]
-        public IActionResult StudentUpdatee(long Id)
+        public async Task<IActionResult> StudentUpdatee(long Id)
         {
             if (Id != null)
             {
-                return View(_student.GetById(Id));
+                return View(await _student.GetById(Id));
             }
             return Redirect("/StudentUpdate");
         }
 
         [HttpPost]
         [Route("/StudentUpdatee")]
-        public IActionResult StudentUpdatee(Students dto)
+        public async Task<IActionResult> StudentUpdatee(Students dto)
         {
             if (ModelState.IsValid)
             {
                 _student.Edit(dto);
-                _student.Save();
+                await _student.Save();
                 ViewBag.Mode = "success";
                 ViewBag.Message = "با موفقیت ویرایش شد";
                 return View();
@@ -406,14 +406,16 @@ namespace Book.Controllers
         [HttpGet]
         [Route("/Users")]
         [Authorize(Roles ="Admin")]
-        public IActionResult Users()
+        // [AllowAnonymous]
+        public async Task<IActionResult> Users()
         {
-            return View(_userManager.Users.ToList());
+            return View(await _userManager.Users.ToListAsync());
         }
 
         [HttpGet]
         [Route("/NewUser")]
         [Authorize(Roles = "Admin")]
+        // [AllowAnonymous]
         public IActionResult NewUser()
         {
             return View();
@@ -421,6 +423,8 @@ namespace Book.Controllers
 
         [HttpPost]
         [Route("/NewUser")]
+        // [AllowAnonymous]
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> NewUser(AddUserDto model)
         {
@@ -430,7 +434,7 @@ namespace Book.Controllers
                 Email = model.Email,
                 PhoneNumber=model.PhoneNumber,
                 PhoneNumberConfirmed=true,
-                EmailConfirmed = true
+                EmailConfirmed = true,
             };
             IdentityResult res = await _userManager.CreateAsync(user: user, password: model.Password);
             if (res.Succeeded)

@@ -72,7 +72,7 @@ using Book.DateConvert;
 #line hidden
 #nullable disable
             WriteLiteral(@"
-<!--<section class=""content mr-5"">
+<!--<section class=""content  "">
     <div class=""container"">
         <div class=""row"">
             <div class=""col-lg-3 col-6"">-->
@@ -160,7 +160,7 @@ using Book.DateConvert;
     </div>
 </section>-->
 
-<div class=""row mt-3 mr-5"">
+<div class=""row mt-3  "">
     <div class=""col-12"">
         <div class=""card"">
             <div class=""card-header"">

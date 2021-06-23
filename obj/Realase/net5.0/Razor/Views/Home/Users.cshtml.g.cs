@@ -44,7 +44,7 @@ using Book.Models;
             WriteLiteral(@"
 
 
-<div class=""row mt-3 mr-5"">
+<div class=""row mt-3  "">
     <div class=""col-12"">
         <div class=""card"">
             <div class=""card-header"">

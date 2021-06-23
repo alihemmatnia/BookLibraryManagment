@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//using WebMarkupMin.AspNetCore5;
+using WebMarkupMin.AspNetCore5;
 
 namespace Book
 {
@@ -34,10 +34,10 @@ namespace Book
             services.AddControllersWithViews();
 
 
-            //services.AddWebMarkupMin(e => e.AllowMinificationInDevelopmentEnvironment = true)
-            //    .AddHtmlMinification()
-            //    .AddHttpCompression();
-            services.AddDbContext<DataBaseContext>(option=>option.UseSqlServer("Server=.;Initial Catalog=Book;Integrated Security=true"));
+            services.AddWebMarkupMin(e => e.AllowMinificationInDevelopmentEnvironment = true)
+               .AddHtmlMinification()
+               .AddHttpCompression();
+            services.AddDbContext<DataBaseContext>(option=>option.UseSqlite("data source=db.db"));
 
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -75,7 +75,7 @@ namespace Book
             app.UseStaticFiles();
 
             app.UseRouting();
-            //app.UseWebMarkupMin();
+            app.UseWebMarkupMin();
 
             app.UseAuthentication();
             app.UseAuthorization();

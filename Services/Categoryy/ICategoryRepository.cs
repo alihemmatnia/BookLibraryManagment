@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Book.Data;
 using Book.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Book.Services.Categoryy
 {
     public interface ICategoryRepository
     {
-        void AddCategory(AddCategoryDto dto);
-        List<Category> GetAll();
-        void Delete(long Id);
-        Category GetById(long Id);
-        void Save();
+        Task AddCategory(AddCategoryDto dto);
+        Task<List<Category>> GetAll();
+        Task Delete(long Id);
+        Task<Category> GetById(long Id);
+        Task Save();
 
     }
 
@@ -24,32 +26,32 @@ namespace Book.Services.Categoryy
             _context = context;
         }
 
-        public void AddCategory(AddCategoryDto dto)
+        public async Task AddCategory(AddCategoryDto dto)
         {
-            _context.Categories.Add(new Category()
+            await _context.Categories.AddAsync(new Category()
             {
                 Title = dto.Title
             });
         }
 
-        public void Delete(long Id)
+        public async Task Delete(long Id)
         {
-            _context.Categories.Remove(GetById(Id));
+            _context.Categories.Remove(await GetById(Id));
         }
 
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAll()
         {
-            return _context.Categories.OrderByDescending(p=>p.CategoryId).ToList();
+            return await _context.Categories.OrderByDescending(p=>p.CategoryId).ToListAsync();
         }
 
-        public Category GetById(long Id)
+        public async Task<Category> GetById(long Id)
         {
-            return _context.Categories.Find(Id);
+            return await _context.Categories.FindAsync(Id);
         }
 
-        public void Save()
+        public async Task Save()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
